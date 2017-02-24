@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  post 'auth_user'=> 'authentication#authenticate_user'
+  post 'auth'=> 'authentication#authenticate_user'
 end

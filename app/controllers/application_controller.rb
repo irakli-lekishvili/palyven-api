@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::API
-  before_filter :authenticate_request!
   attr_reader :current_user
 
 protected

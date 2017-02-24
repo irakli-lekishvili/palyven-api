@@ -1,7 +1,7 @@
 class AuthenticationController < ApplicationController
   def authenticate_user
     user = User.find_for_database_authentication(email: params[:email])
-    if user.valid_password?(params[:password])
+    if user && user.valid_password?(params[:password])
       render json: payload(user)
     else
       render json: {errors: ['Invalid Username/Password']}, status: :unauthorized
@@ -12,9 +12,6 @@ private
 
   def payload(user)
     return nil unless user and user.id
-    {
-      auth_token: JsonWebToken.encode({user_id: user.id}),
-      user: {id: user.id, email: user.email}
-    }
+    { auth_token: JsonWebToken.encode(id: user.id.to_s, email: user.email) }
   end
 end
